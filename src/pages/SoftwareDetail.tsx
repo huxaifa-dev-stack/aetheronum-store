@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getSoftwareById } from "@/data/mockSoftware";
@@ -31,7 +32,20 @@ export default function SoftwareDetail() {
   }
 
   const handleDownload = () => {
+    // Save to download history
+    const downloadItem = {
+      software,
+      downloadDate: new Date().toISOString(),
+      id: `${software.id}-${Date.now()}`
+    };
+    
+    const existingHistory = JSON.parse(localStorage.getItem('downloadHistory') || '[]');
+    const updatedHistory = [downloadItem, ...existingHistory];
+    localStorage.setItem('downloadHistory', JSON.stringify(updatedHistory));
+    
+    // Trigger download
     console.log(`Downloading ${software.name}`);
+    window.open(software.downloadUrl, '_blank');
     alert(`Download started for ${software.name}`);
   };
 
@@ -189,6 +203,8 @@ export default function SoftwareDetail() {
           </div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

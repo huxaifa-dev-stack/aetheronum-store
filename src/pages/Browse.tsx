@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
-import { HeroSection } from "@/components/HeroSection";
-import { FeaturedCarousel } from "@/components/FeaturedCarousel";
-import { SoftwareCard } from "@/components/SoftwareCard";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryFilter } from "@/components/CategoryFilter";
+import { SoftwareCard } from "@/components/SoftwareCard";
 import { Footer } from "@/components/Footer";
-import { mockSoftware, getFeaturedSoftware, searchSoftware, getSoftwareByCategory } from "@/data/mockSoftware";
+import { mockSoftware, searchSoftware } from "@/data/mockSoftware";
 
-const Index = () => {
+const Browse = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
-  const featuredSoftware = getFeaturedSoftware();
-  
+
   // Filter software based on search and category
   const filteredSoftware = (() => {
     let filtered = searchQuery ? searchSoftware(searchQuery) : mockSoftware;
@@ -25,59 +21,40 @@ const Index = () => {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setSelectedCategory("All"); // Reset category when searching
   };
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    setSearchQuery(""); // Reset search when filtering by category
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section - Only show when no search/filter active */}
-      {!searchQuery && selectedCategory === "All" && (
-        <>
-          <HeroSection onSearch={handleSearch} />
-          <FeaturedCarousel software={featuredSoftware} />
-        </>
-      )}
-
-      {/* Main Content */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          {/* Search Results Header */}
-          {(searchQuery || selectedCategory !== "All") && (
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4">
-                {searchQuery 
-                  ? `Search Results for "${searchQuery}"` 
-                  : `${selectedCategory} Software`
-                }
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                {filteredSoftware.length} software found
-              </p>
-              
-              {/* Search Bar for non-hero pages */}
-              <div className="max-w-xl mb-6">
-                <SearchBar 
-                  onSearch={handleSearch}
-                  placeholder="Search software..."
-                />
-              </div>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Browse Software
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Discover and download from our extensive collection of verified software
+            </p>
+            
+            <div className="max-w-2xl mx-auto mb-8">
+              <SearchBar 
+                onSearch={handleSearch}
+                placeholder="Search software, tools, or apps..."
+                className="w-full"
+              />
             </div>
-          )}
+          </div>
 
-          {/* Category Filter */}
           <CategoryFilter 
             selectedCategory={selectedCategory}
             onCategoryChange={handleCategoryChange}
           />
 
-          {/* Software Grid */}
           {filteredSoftware.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredSoftware.map((software) => (
@@ -117,4 +94,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Browse;

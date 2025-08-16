@@ -12,9 +12,21 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
   const handleDownload = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    // In a real app, this would trigger the download
+    
+    // Save to download history
+    const downloadItem = {
+      software,
+      downloadDate: new Date().toISOString(),
+      id: `${software.id}-${Date.now()}`
+    };
+    
+    const existingHistory = JSON.parse(localStorage.getItem('downloadHistory') || '[]');
+    const updatedHistory = [downloadItem, ...existingHistory];
+    localStorage.setItem('downloadHistory', JSON.stringify(updatedHistory));
+    
+    // Trigger download
     console.log(`Downloading ${software.name}`);
-    // For demo, we'll show a toast or alert
+    window.open(software.downloadUrl, '_blank');
     alert(`Download started for ${software.name}`);
   };
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/SearchBar";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-banner.jpg";
 
 interface HeroSectionProps {
@@ -48,11 +49,11 @@ export function HeroSection({ onSearch }: HeroSectionProps) {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
-            <Button variant="hero" size="xl" className="animate-pulse-glow">
-              Explore Software
+            <Button variant="hero" size="xl" className="animate-pulse-glow" asChild>
+              <Link to="/browse">Explore Software</Link>
             </Button>
-            <Button variant="outline" size="xl">
-              Browse Categories
+            <Button variant="outline" size="xl" asChild>
+              <Link to="/browse">Browse Categories</Link>
             </Button>
           </div>
 
