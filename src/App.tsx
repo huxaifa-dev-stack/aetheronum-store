@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Browse from "./pages/Browse";
 import Downloads from "./pages/Downloads";
+import Dashboard from "./pages/Dashboard";
+import Wishlist from "./pages/Wishlist";
 import SoftwareDetail from "./pages/SoftwareDetail";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +23,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/downloads" element={<Downloads />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/software/:id" element={<SoftwareDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -1,13 +1,38 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Download, Search, Home } from "lucide-react";
+import { AuthModal } from "@/components/AuthModal";
+import { UserMenu } from "@/components/UserMenu";
+import { Menu, X, Download, Search, Home, User, LogIn } from "lucide-react";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(
+    JSON.parse(localStorage.getItem('user') || 'null')
+  );
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleLogin = (email: string, password: string) => {
+    // Mock login - in real app, this would be an API call
+    const userData = { name: "John Doe", email };
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const handleRegister = (name: string, email: string, password: string) => {
+    // Mock register - in real app, this would be an API call
+    const userData = { name, email };
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
   const navItems = [
     { href: "/", label: "Home", icon: Home },
@@ -48,6 +73,16 @@ export function Navigation() {
                 </Link>
               );
             })}
+            
+            {/* Auth Section */}
+            {user ? (
+              <UserMenu user={user} onLogout={handleLogout} />
+            ) : (
+              <Button variant="default" onClick={() => setIsAuthModalOpen(true)}>
+                <LogIn className="w-4 h-4 mr-2" />
+                Sign In
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,10 +118,49 @@ export function Navigation() {
                   </Link>
                 );
               })}
+              
+              {/* Mobile Auth */}
+              {user ? (
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                    <User className="w-4 h-4" />
+                    <span className="text-sm">{user.name}</span>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start" 
+                    onClick={handleLogout}
+                  >
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <div className="pt-4 border-t border-border">
+                  <Button 
+                    variant="default" 
+                    className="w-full" 
+                    onClick={() => {
+                      setIsAuthModalOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         )}
       </div>
+      
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onLogin={handleLogin}
+        onRegister={handleRegister}
+      />
     </nav>
   );
 }

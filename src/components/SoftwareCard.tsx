@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { Software } from "@/data/mockSoftware";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Verified } from "lucide-react";
+import { Download, Verified, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface SoftwareCardProps {
@@ -9,6 +10,25 @@ interface SoftwareCardProps {
 }
 
 export function SoftwareCard({ software }: SoftwareCardProps) {
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    setIsWishlisted(wishlist.includes(software.id));
+  }, [software.id]);
+
+  const toggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const updatedWishlist = isWishlisted
+      ? wishlist.filter((id: string) => id !== software.id)
+      : [...wishlist, software.id];
+    
+    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    setIsWishlisted(!isWishlisted);
+  };
   const handleDownload = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -35,7 +55,16 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
       to={`/software/${software.id}`}
       className="block h-full"
     >
-      <div className="group h-full p-6 rounded-xl bg-card border border-border hover-lift hover:border-primary/20 transition-smooth">
+      <div className="group h-full p-6 rounded-xl bg-card border border-border hover-lift hover:border-primary/20 transition-smooth relative">
+        {/* Wishlist Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          onClick={toggleWishlist}
+        >
+          <Heart className={`w-4 h-4 ${isWishlisted ? 'text-red-500 fill-current' : 'text-muted-foreground'}`} />
+        </Button>
         {/* Logo */}
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center text-3xl shadow-soft group-hover:shadow-glow transition-smooth">

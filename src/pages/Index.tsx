@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
+import { SoftwareCollections } from "@/components/SoftwareCollections";
 import { SoftwareCard } from "@/components/SoftwareCard";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryFilter } from "@/components/CategoryFilter";
@@ -42,6 +43,7 @@ const Index = () => {
         <>
           <HeroSection onSearch={handleSearch} />
           <FeaturedCarousel software={featuredSoftware} />
+          <SoftwareCollections allSoftware={mockSoftware} />
         </>
       )}
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryFilter } from "@/components/CategoryFilter";
+import { AdvancedFilters } from "@/components/AdvancedFilters";
 import { SoftwareCard } from "@/components/SoftwareCard";
 import { Footer } from "@/components/Footer";
 import { mockSoftware, searchSoftware } from "@/data/mockSoftware";
@@ -9,13 +10,48 @@ import { mockSoftware, searchSoftware } from "@/data/mockSoftware";
 const Browse = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [filters, setFilters] = useState({
+    categories: [] as string[],
+    platforms: [] as string[],
+    priceRange: [0, 100] as [number, number],
+    rating: 0,
+    verified: false,
+    featured: false,
+  });
 
-  // Filter software based on search and category
+  // Filter software based on search, category, and advanced filters
   const filteredSoftware = (() => {
     let filtered = searchQuery ? searchSoftware(searchQuery) : mockSoftware;
+    
+    // Category filter
     if (selectedCategory !== "All") {
       filtered = filtered.filter(software => software.category === selectedCategory);
     }
+    
+    // Advanced filters
+    if (filters.categories.length > 0) {
+      filtered = filtered.filter(software => filters.categories.includes(software.category));
+    }
+    
+    if (filters.platforms.length > 0) {
+      filtered = filtered.filter(software => 
+        software.platform.some(platform => filters.platforms.includes(platform))
+      );
+    }
+    
+    if (filters.verified) {
+      filtered = filtered.filter(software => software.verified);
+    }
+    
+    if (filters.featured) {
+      filtered = filtered.filter(software => software.isFeatured);
+    }
+    
+    // Mock rating filter (since we don't have ratings in mock data)
+    if (filters.rating > 0) {
+      filtered = filtered.filter(() => Math.random() > 0.3); // Random filter for demo
+    }
+    
     return filtered;
   })();
 
@@ -25,6 +61,19 @@ const Browse = () => {
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      categories: [],
+      platforms: [],
+      priceRange: [0, 100],
+      rating: 0,
+      verified: false,
+      featured: false,
+    });
+    setSelectedCategory("All");
+    setSearchQuery("");
   };
 
   return (
@@ -49,6 +98,12 @@ const Browse = () => {
               />
             </div>
           </div>
+
+          <AdvancedFilters 
+            filters={filters}
+            onFiltersChange={setFilters}
+            onReset={resetFilters}
+          />
 
           <CategoryFilter 
             selectedCategory={selectedCategory}
