@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { SoftwareCard } from "@/components/SoftwareCard";
 import { Button } from "@/components/ui/button";
 import { mockSoftware, Software } from "@/data/mockSoftware";
@@ -102,6 +103,7 @@ const Wishlist = () => {
       </section>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

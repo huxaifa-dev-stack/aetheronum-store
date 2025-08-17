@@ -55,7 +55,7 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
       to={`/software/${software.id}`}
       className="block h-full"
     >
-      <div className="group h-full p-6 rounded-xl bg-card border border-border hover-lift hover:border-primary/20 transition-smooth relative">
+      <div className="group h-full p-6 rounded-xl bg-card border border-border card-interactive relative hover:border-primary/30 shadow-soft hover:shadow-medium">
         {/* Wishlist Button */}
         <Button
           variant="ghost"
@@ -67,7 +67,7 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
         </Button>
         {/* Logo */}
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center text-3xl shadow-soft group-hover:shadow-glow transition-smooth">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center text-3xl shadow-soft group-hover:shadow-glow transition-smooth group-hover:scale-110">
             {software.logo}
           </div>
         </div>
@@ -105,7 +105,7 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
         <Button 
           variant="download" 
           size="lg" 
-          className="w-full"
+          className="w-full btn-hover-lift"
           onClick={handleDownload}
         >
           <Download className="w-4 h-4" />

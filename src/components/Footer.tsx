@@ -157,8 +157,30 @@ export function Footer() {
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 md:w-64 px-4 py-2 bg-background border border-border rounded-lg focus:border-primary focus:outline-none transition-smooth"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    const input = e.target as HTMLInputElement;
+                    if (input.value) {
+                      alert('Thank you for subscribing! We\'ll keep you updated.');
+                      input.value = '';
+                    }
+                  }
+                }}
               />
-              <Button variant="default">Subscribe</Button>
+              <Button 
+                variant="default" 
+                onClick={() => {
+                  const input = document.querySelector('input[type="email"]') as HTMLInputElement;
+                  if (input?.value) {
+                    alert('Thank you for subscribing! We\'ll keep you updated.');
+                    input.value = '';
+                  } else {
+                    alert('Please enter a valid email address.');
+                  }
+                }}
+              >
+                Subscribe
+              </Button>
             </div>
           </div>
         </div>

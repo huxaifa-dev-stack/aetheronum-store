@@ -7,6 +7,8 @@ import { SoftwareCard } from "@/components/SoftwareCard";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryFilter } from "@/components/CategoryFilter";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { Button } from "@/components/ui/button";
 import { mockSoftware, getFeaturedSoftware, searchSoftware, getSoftwareByCategory } from "@/data/mockSoftware";
 
 const Index = () => {
@@ -48,18 +50,18 @@ const Index = () => {
       )}
 
       {/* Main Content */}
-      <section className="py-16">
+      <main id="main-content" className="py-16">
         <div className="container mx-auto px-6">
           {/* Search Results Header */}
           {(searchQuery || selectedCategory !== "All") && (
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4">
+            <div className="mb-8 fade-in">
+              <h2 className="section-title font-bold mb-4">
                 {searchQuery 
                   ? `Search Results for "${searchQuery}"` 
                   : `${selectedCategory} Software`
                 }
               </h2>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground mb-6 text-lg">
                 {filteredSoftware.length} software found
               </p>
               
@@ -74,47 +76,54 @@ const Index = () => {
           )}
 
           {/* Category Filter */}
-          <CategoryFilter 
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          />
+          <div className="fade-in-delay-1">
+            <CategoryFilter 
+              selectedCategory={selectedCategory}
+              onCategoryChange={handleCategoryChange}
+            />
+          </div>
 
           {/* Software Grid */}
           {filteredSoftware.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredSoftware.map((software) => (
-                <div key={software.id} className="animate-fade-in">
+              {filteredSoftware.map((software, index) => (
+                <div 
+                  key={software.id} 
+                  className="fade-in"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
                   <SoftwareCard software={software} />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-semibold mb-2">No software found</h3>
-              <p className="text-muted-foreground mb-6">
-                Try adjusting your search terms or browse different categories.
+            <div className="text-center py-16 fade-in">
+              <div className="text-8xl mb-6 opacity-50">🔍</div>
+              <h3 className="text-3xl font-semibold mb-4">No software found</h3>
+              <p className="text-muted-foreground mb-8 text-lg max-w-md mx-auto">
+                We couldn't find any software matching your criteria. Try adjusting your search or explore different categories.
               </p>
-              <div className="flex gap-4 justify-center">
-                <button 
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  variant="outline"
                   onClick={() => setSearchQuery("")}
-                  className="text-primary hover:underline"
                 >
                   Clear search
-                </button>
-                <button 
+                </Button>
+                <Button 
+                  variant="default"
                   onClick={() => setSelectedCategory("All")}
-                  className="text-primary hover:underline"
                 >
                   View all categories
-                </button>
+                </Button>
               </div>
             </div>
           )}
         </div>
-      </section>
+      </main>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

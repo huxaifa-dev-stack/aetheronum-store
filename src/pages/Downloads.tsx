@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigation } from "@/components/Navigation";
 import { SoftwareCard } from "@/components/SoftwareCard";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { mockSoftware, Software } from "@/data/mockSoftware";
 import { Button } from "@/components/ui/button";
 import { Download, Trash2 } from "lucide-react";
@@ -112,6 +113,7 @@ const Downloads = () => {
       </section>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

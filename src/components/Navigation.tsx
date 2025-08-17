@@ -41,7 +41,7 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -98,7 +98,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
+          <div className="md:hidden py-4 fade-in bg-background/95 backdrop-blur-md border-t border-border/50">
             <div className="flex flex-col space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon;

@@ -5,6 +5,7 @@ import { CategoryFilter } from "@/components/CategoryFilter";
 import { AdvancedFilters } from "@/components/AdvancedFilters";
 import { SoftwareCard } from "@/components/SoftwareCard";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { mockSoftware, searchSoftware } from "@/data/mockSoftware";
 
 const Browse = () => {
@@ -145,6 +146,7 @@ const Browse = () => {
       </section>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

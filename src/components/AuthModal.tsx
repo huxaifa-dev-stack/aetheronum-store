@@ -19,17 +19,38 @@ export function AuthModal({ isOpen, onClose, onLogin, onRegister }: AuthModalPro
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!loginData.email || !loginData.password) {
+      alert("Please fill in all fields");
+      return;
+    }
     onLogin(loginData.email, loginData.password);
+    setLoginData({ email: "", password: "" });
     onClose();
   };
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!registerData.name || !registerData.email || !registerData.password) {
+      alert("Please fill in all fields");
+      return;
+    }
     if (registerData.password !== registerData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
+    if (registerData.password.length < 6) {
+      alert("Password must be at least 6 characters long");
+      return;
+    }
     onRegister(registerData.name, registerData.email, registerData.password);
+    setRegisterData({ name: "", email: "", password: "", confirmPassword: "" });
+    onClose();
+  };
+
+  const handleGithubAuth = () => {
+    // Mock GitHub authentication
+    const userData = { name: "GitHub User", email: "user@github.com" };
+    onLogin(userData.email, "github_auth");
     onClose();
   };
 
@@ -93,7 +114,7 @@ export function AuthModal({ isOpen, onClose, onLogin, onRegister }: AuthModalPro
                 </div>
               </div>
               
-              <Button type="button" variant="outline" className="w-full">
+              <Button type="button" variant="outline" className="w-full" onClick={handleGithubAuth}>
                 <Github className="w-4 h-4 mr-2" />
                 Continue with GitHub
               </Button>

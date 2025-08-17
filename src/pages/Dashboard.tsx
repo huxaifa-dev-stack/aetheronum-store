@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -188,6 +189,7 @@ const Dashboard = () => {
       </div>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
