@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AuthModal } from "@/components/AuthModal";
 import { UserMenu } from "@/components/UserMenu";
-import { Menu, X, Download, Search, Home, User, LogIn } from "lucide-react";
+import { Menu, X, Download, Search, Home, User, LogIn, Grid3x3, Star, Info, HelpCircle } from "lucide-react";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +38,10 @@ export function Navigation() {
     { href: "/", label: "Home", icon: Home },
     { href: "/browse", label: "Browse", icon: Search },
     { href: "/downloads", label: "Downloads", icon: Download },
+    { href: "/categories", label: "Categories", icon: Grid3x3 },
+    { href: "/reviews", label: "Reviews", icon: Star },
+    { href: "/about", label: "About", icon: Info },
+    { href: "/support", label: "Support", icon: HelpCircle },
   ];
 
   return (
