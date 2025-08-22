@@ -50,23 +50,23 @@ const Index = () => {
       )}
 
       {/* Main Content */}
-      <main id="main-content" className="py-16">
-        <div className="container mx-auto px-6">
+      <main id="main-content" className="py-8 sm:py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Search Results Header */}
           {(searchQuery || selectedCategory !== "All") && (
-            <div className="mb-8 fade-in">
-              <h2 className="section-title font-bold mb-4">
+            <div className="mb-6 sm:mb-8 fade-in">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
                 {searchQuery 
                   ? `Search Results for "${searchQuery}"` 
                   : `${selectedCategory} Software`
                 }
               </h2>
-              <p className="text-muted-foreground mb-6 text-lg">
+              <p className="text-muted-foreground mb-4 sm:mb-6 text-base sm:text-lg">
                 {filteredSoftware.length} software found
               </p>
               
               {/* Search Bar for non-hero pages */}
-              <div className="max-w-xl mb-6">
+              <div className="max-w-xl mb-4 sm:mb-6">
                 <SearchBar 
                   onSearch={handleSearch}
                   placeholder="Search software..."
@@ -76,7 +76,7 @@ const Index = () => {
           )}
 
           {/* Category Filter */}
-          <div className="fade-in-delay-1">
+          <div className="fade-in-delay-1 mb-6 sm:mb-8">
             <CategoryFilter 
               selectedCategory={selectedCategory}
               onCategoryChange={handleCategoryChange}
@@ -85,7 +85,7 @@ const Index = () => {
 
           {/* Software Grid */}
           {filteredSoftware.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
               {filteredSoftware.map((software, index) => (
                 <div 
                   key={software.id} 
@@ -97,21 +97,25 @@ const Index = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 fade-in">
-              <div className="text-8xl mb-6 opacity-50">🔍</div>
-              <h3 className="text-3xl font-semibold mb-4">No software found</h3>
-              <p className="text-muted-foreground mb-8 text-lg max-w-md mx-auto">
+            <div className="text-center py-8 sm:py-12 lg:py-16 fade-in px-4">
+              <div className="text-4xl sm:text-6xl lg:text-8xl mb-4 sm:mb-6 opacity-50">🔍</div>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4">No software found</h3>
+              <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg max-w-md mx-auto">
                 We couldn't find any software matching your criteria. Try adjusting your search or explore different categories.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button 
                   variant="outline"
+                  size="sm"
+                  className="w-full sm:w-auto"
                   onClick={() => setSearchQuery("")}
                 >
                   Clear search
                 </Button>
                 <Button 
                   variant="default"
+                  size="sm"
+                  className="w-full sm:w-auto"
                   onClick={() => setSelectedCategory("All")}
                 >
                   View all categories

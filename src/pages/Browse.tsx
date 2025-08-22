@@ -81,17 +81,17 @@ const Browse = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+      <section className="py-8 sm:py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
               Browse Software
             </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Discover and download from our extensive collection of verified software
             </p>
             
-            <div className="max-w-2xl mx-auto mb-8">
+            <div className="max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
               <SearchBar 
                 onSearch={handleSearch}
                 placeholder="Search software, tools, or apps..."
@@ -100,19 +100,23 @@ const Browse = () => {
             </div>
           </div>
 
-          <AdvancedFilters 
-            filters={filters}
-            onFiltersChange={setFilters}
-            onReset={resetFilters}
-          />
+          <div className="mb-6 sm:mb-8">
+            <AdvancedFilters 
+              filters={filters}
+              onFiltersChange={setFilters}
+              onReset={resetFilters}
+            />
+          </div>
 
-          <CategoryFilter 
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          />
+          <div className="mb-6 sm:mb-8">
+            <CategoryFilter 
+              selectedCategory={selectedCategory}
+              onCategoryChange={handleCategoryChange}
+            />
+          </div>
 
           {filteredSoftware.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
               {filteredSoftware.map((software) => (
                 <div key={software.id} className="animate-fade-in">
                   <SoftwareCard software={software} />
@@ -120,22 +124,22 @@ const Browse = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-semibold mb-2">No software found</h3>
-              <p className="text-muted-foreground mb-6">
+            <div className="text-center py-8 sm:py-12 px-4">
+              <div className="text-4xl sm:text-6xl mb-4">🔍</div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3">No software found</h3>
+              <p className="text-muted-foreground mb-4 sm:mb-6 text-sm sm:text-base max-w-md mx-auto">
                 Try adjusting your search terms or browse different categories.
               </p>
-              <div className="flex gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <button 
                   onClick={() => setSearchQuery("")}
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline text-sm sm:text-base"
                 >
                   Clear search
                 </button>
                 <button 
                   onClick={() => setSelectedCategory("All")}
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline text-sm sm:text-base"
                 >
                   View all categories
                 </button>

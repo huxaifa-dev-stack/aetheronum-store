@@ -96,27 +96,28 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
       to={`/software/${software.id}`}
       className="block h-full"
     >
-      <div className="group h-full p-4 sm:p-6 rounded-xl bg-card border border-border card-interactive relative hover:border-primary/30 shadow-soft hover:shadow-medium transition-all duration-300">
+      <div className="group h-full p-3 sm:p-4 lg:p-6 rounded-xl bg-card border border-border card-interactive relative hover:border-primary/30 shadow-soft hover:shadow-medium transition-all duration-300">
         {/* Wishlist Button */}
         <Button
           variant="ghost"
           size="sm"
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-2 right-2 w-8 h-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={toggleWishlist}
         >
-          <Heart className={`w-4 h-4 ${isWishlisted ? 'text-red-500 fill-current' : 'text-muted-foreground'}`} />
+          <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isWishlisted ? 'text-red-500 fill-current' : 'text-muted-foreground'}`} />
         </Button>
+        
         {/* Logo */}
-        <div className="flex justify-center mb-3 sm:mb-4">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-soft group-hover:shadow-glow transition-smooth group-hover:scale-110">
+        <div className="flex justify-center mb-3">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center text-lg sm:text-2xl lg:text-3xl shadow-soft group-hover:shadow-glow transition-smooth group-hover:scale-110">
             {software.logo}
           </div>
         </div>
 
         {/* Software Info */}
-        <div className="text-center mb-3 sm:mb-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-smooth line-clamp-1">
+        <div className="text-center mb-3">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+            <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-foreground group-hover:text-primary transition-smooth line-clamp-1">
               {software.name}
             </h3>
             {software.verified && (
@@ -124,19 +125,19 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
             )}
           </div>
           
-          <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-1">
+          <p className="text-xs text-muted-foreground mb-2 line-clamp-1">
             by {software.developer}
           </p>
 
-          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-3 min-h-[2.5rem] sm:min-h-[3rem]">
+          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-3 min-h-[2rem] sm:min-h-[2.5rem] lg:min-h-[3rem]">
             {software.description}
           </p>
 
-          <div className="flex items-center justify-center gap-1 sm:gap-2 mb-3 sm:mb-4 flex-wrap">
-            <Badge variant="secondary" className="text-xs px-2 py-1">
+          <div className="flex items-center justify-center gap-1 mb-3 flex-wrap">
+            <Badge variant="secondary" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1">
               {software.category}
             </Badge>
-            <Badge variant="outline" className="text-xs px-2 py-1">
+            <Badge variant="outline" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1">
               {software.price}
             </Badge>
           </div>
@@ -145,16 +146,16 @@ export function SoftwareCard({ software }: SoftwareCardProps) {
         {/* Download Button */}
         <Button 
           variant="download" 
-          size="lg" 
-          className="w-full btn-hover-lift text-sm sm:text-base h-10 sm:h-12"
+          size="sm"
+          className="w-full btn-hover-lift text-xs sm:text-sm lg:text-base h-8 sm:h-10 lg:h-12"
           onClick={handleDownload}
         >
-          <Download className="w-3 h-3 sm:w-4 sm:h-4" />
+          <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
           Download
         </Button>
 
         {/* Stats */}
-        <div className="mt-2 sm:mt-3 text-center">
+        <div className="mt-2 text-center">
           <span className="text-xs text-muted-foreground">
             {software.downloads.toLocaleString()} downloads
           </span>
